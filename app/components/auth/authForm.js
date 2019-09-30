@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Image, Text, Button, Platform } from "react-native";
 import Input from "../../utils/forms/input";
+import ValidationRules from "../../utils/forms/validationRules";
 
 class AuthForm extends React.Component {
   state = {
@@ -24,7 +25,7 @@ class AuthForm extends React.Component {
         type: "textinput",
         rules: {
           isRequired: true,
-          minlength: 6
+          minLength: 6
         }
       },
       confirmPassword: {
@@ -44,13 +45,44 @@ class AuthForm extends React.Component {
     });
     let formCopy = this.state.form;
     formCopy[name].value = value;
-
+    //rules
+    let rules = formCopy[name].rules;
+    let valid = ValidationRules(value, rules, formCopy);
+    console.log(valid);
+    formCopy[name].valid = valid;
     this.setState({
       form: formCopy
     });
   };
 
-  submitUser = () => {};
+  submitUser = () => {
+    let isFormValid = true;
+    let formToSubmit = {};
+
+    const formCopy = this.state.form;
+
+    for (let key in formCopy) {
+      if (this.state.type === "Login") {
+        if (key !== "confirmPassword") {
+          isFormValid = isFormValid && formCopy[key].valid;
+          formToSubmit[key] = formCopy[key].value;
+        }
+      } else {
+        isFormValid = isFormValid && formCopy[key].valid;
+        formToSubmit[key] = formCopy[key].value;
+      }
+    }
+
+    if (isFormValid) {
+      if (this.state.type === "Login") {
+        console.log(formToSubmit);
+      } else {
+        console.log(formToSubmit);
+      }
+    } else {
+      this.setState({ hasErrors: true });
+    }
+  };
 
   formHasError = () =>
     this.state.hasErrors ? (
@@ -87,7 +119,7 @@ class AuthForm extends React.Component {
         <Input
           placeholder="Enter email"
           placeholderTextColor="#cecece"
-          autoCapiatalize={"none"}
+          autoCapitalize={"none"}
           type={this.state.form.email.type}
           value={this.state.form.email.value}
           keyboardType={"email-address"}
