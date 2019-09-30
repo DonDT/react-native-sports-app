@@ -1,13 +1,11 @@
 import React, { Component } from "react";
-import { StyleSheet, View } from "react-native";
-import { RootNavigator } from "./routes";
+import { StyleSheet, View, Text } from "react-native";
 
-class App extends Component {
+class GamesComponent extends Component {
   render() {
-    const Nav = RootNavigator();
     return (
       <View style={styles.container}>
-        <Nav />
+        <Text> Hello I am the Games </Text>
       </View>
     );
   }
@@ -20,4 +18,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default App;
+export default GamesComponent;
