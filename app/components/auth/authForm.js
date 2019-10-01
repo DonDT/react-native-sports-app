@@ -202,7 +202,6 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-  console.log(state);
   return {
     User: state.User
   };

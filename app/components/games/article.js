@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Text } from "react-native";
 
-class NewsComponent extends Component {
+class GameArticleComponent extends Component {
   render() {
     return (
       <View>
-        <Text> Hello I am the News Section</Text>
+        <Text> Hello I am the GameArticle</Text>
       </View>
     );
   }
@@ -18,4 +18,4 @@ class NewsComponent extends Component {
 //   }
 // });
 
-export default NewsComponent;
+export default GameArticleComponent;

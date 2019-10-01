@@ -3,10 +3,8 @@ import { AsyncStorage } from "react-native";
 export const FIREBASEURL = `https://rn-nba-app-815ad.firebaseio.com`;
 export const APIKEY = `AIzaSyD7lyp7lBpRrI3BGHb8cVgeN7i1EK7ZaZg`;
 export const SIGNUP = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${APIKEY}`;
-export const SIGNIN = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${APIKEY}
-`;
-export const REFRESH = `https://securetoken.googleapis.com/v1/token?key=${APIKEY}
-`;
+export const SIGNIN = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${APIKEY}`;
+export const REFRESH = `https://securetoken.googleapis.com/v1/token?key=${APIKEY}`;
 
 export const getTokens = cb => {
   // here the data is simply retrived and passed, to the callback of getTokens, which is cb.
