@@ -9,6 +9,11 @@ import {
 import AuthLogo from "./authLogo";
 import AuthForm from "./authForm";
 
+import { getTokens, setTokens } from "../../utils/misc";
+import { connect } from "react-redux";
+import { autoSignIn } from "../../store/actions/user_actions";
+import { bindActionCreators } from "redux";
+
 class AuthComponent extends Component {
   state = {
     loading: false
@@ -16,6 +21,13 @@ class AuthComponent extends Component {
   goNext = () => {
     this.props.navigation.navigate("App");
   };
+
+  componentDidMount() {
+    // getTokens has a callback
+    getTokens(value => {
+      console.log(value);
+    });
+  }
 
   render() {
     if (this.state.loading) {

@@ -5,6 +5,7 @@ import ValidationRules from "../../utils/forms/validationRules";
 import { connect } from "react-redux";
 import { signUp, signIn } from "../../store/actions/user_actions";
 import { bindActionCreators } from "redux";
+import { setTokens } from "../../utils/misc";
 
 class AuthForm extends React.Component {
   state = {
@@ -58,6 +59,20 @@ class AuthForm extends React.Component {
     });
   };
 
+  manageAccess = () => {
+    // since we have access to state through redux, when the user sign in
+    if (!this.props.User.auth.uid) {
+      // if there is no id throw an error
+      this.setState({ hasErrors: true });
+    } else {
+      // else pass the data, set the state of errors to false, and go next.
+      setTokens(this.props.User.auth, () => {
+        this.setState({ hasErrors: true });
+        this.props.goNext();
+      });
+    }
+  };
+
   submitUser = () => {
     let isFormValid = true;
     let formToSubmit = {};
@@ -78,9 +93,14 @@ class AuthForm extends React.Component {
 
     if (isFormValid) {
       if (this.state.type === "Login") {
-        this.props.signIn(formToSubmit);
+        // when the promise is resolved, manageAccess is called to check
+        this.props.signIn(formToSubmit).then(() => {
+          this.manageAccess();
+        });
       } else {
-        this.props.signUp(formToSubmit);
+        this.props.signUp(formToSubmit).then(() => {
+          this.manageAccess();
+        });
       }
     } else {
       this.setState({ hasErrors: true });
