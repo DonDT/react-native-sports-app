@@ -1,5 +1,6 @@
 import React from "react";
 import { Platform } from "react-native";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs";
@@ -54,7 +55,22 @@ const AppStack = createBottomTabNavigator(
       style: {
         backgroundColor: "#001338"
       }
-    }
+    },
+    initialRouteName: "News",
+    defaultNavigationOptions: ({ navigation }) => ({
+      tabBarIcon: ({ focused, horizontal, tintColor }) => {
+        const { routeName } = navigation.state;
+        let iconName;
+
+        if (routeName === "News") {
+          iconName = `ios-basketball`;
+        } else if (routeName === "Games") {
+          iconName = `md-tv`;
+        }
+
+        return <Ionicons name={iconName} size={25} color={tintColor} />;
+      }
+    })
   }
 );
 
