@@ -31,3 +31,24 @@ export const setTokens = (values, cb) => {
     cb();
   });
 };
+
+export const convertFirebase = data => {
+  const newData = [];
+
+  // response.data is the whole object, key is each individual item in the objcet
+  //each item has an id which holds that objcet, thats now refered to as the key.
+  for (let key in data) {
+    newData.push({
+      ...data[key],
+      id: key
+    });
+  }
+  return newData;
+};
+
+export const findTeamData = (itemId, teams) => {
+  const value = teams.find(team => {
+    return team.id === itemId;
+  });
+  return value;
+};
